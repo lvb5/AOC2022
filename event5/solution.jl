@@ -69,23 +69,28 @@ function move_box_keeporder!(boxSetUp, numBoxes, fromColumn, toColumn)
 end
 
 function sol()
-    boxSetUp = [[] for _ in 1:9] 
+    boxSetUp1 = [[] for _ in 1:9] 
+    boxSetUp2 = [[] for _ in 1:9] 
     open("./event5/input.txt") do file
         for line in eachline(file)
             if !isempty(line) && line[1] == 'm'
                 numBoxes, fromColumn, toColumn = read_move_input(line)
-                boxSetUp = move_box_keeporder!(boxSetUp, numBoxes, fromColumn, toColumn)
+                boxSetUp1 = move_box!(boxSetUp1, numBoxes, fromColumn, toColumn)
+                boxSetUp2 = move_box_keeporder!(boxSetUp2, numBoxes, fromColumn, toColumn)
             elseif !isempty(line) && line[2] != '1' && line[1] != 'm'
                 referenceNumLine = " 1   2   3   4   5   6   7   8   9"  
-                boxSetUp = initial_stack_boxes(boxSetUp, line, referenceNumLine)        
+                boxSetUp1 = initial_stack_boxes(boxSetUp1, line, referenceNumLine)      
+                boxSetUp2 = initial_stack_boxes(boxSetUp2, line, referenceNumLine) 
             end
         end
     end
-    outputString = ""
+    outputString1 = ""
+    outputString2 = ""
     for i in 1:9
-        outputString *= boxSetUp[i][1]
+        outputString1 *= boxSetUp1[i][1]
+        outputString2 *= boxSetUp2[i][1]
     end
-    return outputString
+    return outputString1, outputString2
 end
 
 sol()
