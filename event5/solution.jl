@@ -1,4 +1,3 @@
-## use push! and pop! or deleteat! to change arrays
 
 function num_stack(characterNum, referenceNumLine)
     for i in eachindex(referenceNumLine)
