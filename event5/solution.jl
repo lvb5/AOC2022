@@ -17,37 +17,7 @@ function initial_stack_boxes(currentSetup, line, referenceNumLine)
 end
 
 function read_move_input(line::String)
-    numBoxes = 0
-    fromColumn = 0
-    toColumn = 0
-    for character in eachindex(line)
-        if line[character] == 'e'
-            digitNumBoxesString = ""
-            characterTemp = character+2
-            while line[characterTemp] != ' '
-                digitNumBoxesString *= line[characterTemp]
-                characterTemp += 1
-            end
-            numBoxes = parse(Int, digitNumBoxesString)
-        end
-        if line[character] == 'r'
-            digitFromColumnString = ""
-            characterTemp = character+4
-            while line[characterTemp] != ' '
-                digitFromColumnString *= line[characterTemp]
-                characterTemp += 1
-            end
-            fromColumn = parse(Int, digitFromColumnString)
-        end
-        if line[character] == 't'
-            digitToColumnString = ""
-            characterTemp = character+3
-            for i in characterTemp:length(line)
-                digitToColumnString *= line[characterTemp]
-            end
-            toColumn = parse(Int, digitToColumnString)
-        end
-    end
+    numBoxes, fromColumn, toColumn = [parse(Int, m.match) for m in eachmatch(r"\d+", line)]
     return numBoxes, fromColumn, toColumn
 end
 
